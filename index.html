@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>SASS</title>
+</head>
+<body>
+    <h1>SASS Installation</h1>
+    <h2>Method - 1 [Using Prepros Software]</h2>
+    <p>Install the software called <q>Prepros</q>, open the project folder and create folder for CSS, then select SCSS file from SCSS folder and process,
+    this tool automatically processes the SCSS file into CSS and keeps in css folder</p>
+    
+    <h2>Method - 2 [Using NPM - sass (installing globally only)]</h2>
+    <p>Open code editor and prepare SCSS files in folder along with creation of new folder for CSS. Open terminal, install sass by "npm install -g sass" [Installing globally helps SCSS to work in local]. 
+        <br />Type "sass --watch &lt;SCSS folder or SCSS file in root&gt;/&lt;SCSS folder or SCSS file&gt; &lt;CSS folder in root&gt;/&lt;next CSS folder or CSS file&gt;" 
+        <br /><strong>EX: "sass --watch scss/styles.scss css/styles.css"</strong>
+        <br /> Terminal will continue to watch for SCSS changes.
+    </p>
+
+    <h2>Method - 3 [VS Code extension - live sass compiler]</h2>
+    <p>Open VS Code editor, install plugin - live sass compiler. close and navigate to editor settings [bottom left corner]. Search and enter into live sass compiler settings. Click on <strong>Edit in settings.json</strong>
+    <br /> 
+    <pre>
+    <code>
+        "liveSassCompile.settings.generateMap":false, // not required to generate .map.css
+        "liveSassCompile.settings.formats": [
+            {
+                "format": "expanded", // options - expanded (or) compressed
+                "extensionName": ".css", // options - min.css or .css
+                "savePath": "/css" // folder directory for storing css
+            }
+        ]
+    </code>
+    </pre>
+    Need to change this setting only once, when "live sass compiler" is installed.
+    </p>
+
+    <h2>Method - 4 [Using NPM - node sass (for JS libraries & frameworks)]</h2>
+    <p><strong>Step 1: </strong>In project folder, perform npm init in terminal and setup the node modules</p>
+    <p><strong>Step 2: </strong>Install "npm istall node-sass", then create folder for SCSS and CSS</p>
+    <p><strong>Step 3: </strong>Open package.json and add/replace the following </p>
+    <pre>
+        <code>
+            "scripts": {
+                "sass": "node-sass -w <strong>&lt;root folder -> SCSS folder or SCSS folder&gt;</strong>/ -o <strong>&lt;root folder -> CSS folder or CSS folder&gt;</strong> --recursive"
+            }
+        </code>
+    </pre>
+    <p><strong>Step 4: </strong>Now run "npm run sass" in the terminal</p>
+    <p><strong>Step 5: </strong>Click save to compile SASS. [Even when autosave turned on]</p>
+    <hr />
+
+
+    <nav class="nav">
+        <ul>
+            <li>Home</li>
+            <li>Services</li>
+            <li>Knowledge Panel</li>
+            <li>Products</li>
+            <li>Contact</li>
+            <li>Privacy Policy</li>
+        </ul>
+    </nav>
+    <section class="hero-1">
+        <h2>Hero banner First One</h2>
+    </section>
+    <section class="hero-2">
+        <h2>Hero banner Second One</h2>
+    </section>
+    <section class="hero-3">
+        <h2>Hero banner Third One</h2>
+    </section>
+    <section class="main">
+        <h1>Welcome to SASS</h1>
+    </section>
+
+    <h3>Grid one</h3>
+    <section class="grid-container">
+        <article class="grid">1</article>
+        <article class="grid">2</article>
+        <article class="grid">3</article>
+        <article class="grid">4</article>
+        <article class="grid">5</article>
+        <article class="grid">6</article>
+        <article class="grid">7</article>
+        <article class="grid">8</article>
+    </section>
+
+    <h3>Grid two</h3>
+    <section class="grid-container">
+        <article class="grid-2">1</article>
+        <article class="grid-2">2</article>
+        <article class="grid-2">3</article>
+        <article class="grid-2">4</article>
+        <article class="grid-2">5</article>
+        <article class="grid-2">6</article>
+        <article class="grid-2">7</article>
+        <article class="grid-2">8</article>
+    </section>
+
+    <h3>Grid three</h3>
+    <section class="grid-container">
+        <article class="grid-3-1">1</article>
+        <article class="grid-3-2">2</article>
+    </section>
+
+    <section class="color-schemes">
+        <article>Lighten</article>
+        <article>Darken</article>
+        <article>Complement</article>
+    </section>
+
+    <section class="display-view">
+        <article>Different display view</article>
+    </section>
+
+    <section class="btns">
+        <button class="btn">Element 1</button>
+        <button class="btn">Element 2</button>
+        <button class="btn btn-one">Element 3</button>
+        <button class="btn btn-two">Element 4</button>
+        <button class="btn">Element 5</button>
+        <button class="btn">Element 6</button>
+    </section>
+
+    <section class="content-view">
+        <article>Usage of @content 1</article>
+        <article>Usage of @content 2</article>
+        <article>Usage of @content 3</article>
+    </section>
+
+    <section class="multiple-arg">
+        <article>Arg 1</article>
+        <article>Arg 2</article>
+        <article>Arg 3</article>
+        <article>Arg 4</article>
+        <article>Arg 5</article>
+        <article>Arg 6</article>
+        <article>Arg 7</article>
+        <article>Arg 8</article>
+    </section>
+
+    <section class="extend-usage" style="text-align:center">
+        <button class="extend-btns">Using extend</button>
+        <button class="extend-btns">Using extend</button>
+        <button class="extend-btns">Using extend</button>
+        <button class="extend-btns">Using extend</button>
+    </section>
+
+    <section class="function-usage">
+        <h3>Using function to change font color depending on theme</h3>
+    </section>
+
+    <section class="loops-usage">
+        <p>Using @each for looping through classes</p>
+        <p>Using @each for looping through classes</p>
+        <p>Using @each for looping through classes</p>
+        <p>Using @each for looping through classes</p>
+        <p>Using @each for looping through classes</p>
+        <p>Using @each for looping through classes</p>
+    </section>
+</body>
+</html>

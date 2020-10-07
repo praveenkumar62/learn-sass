@@ -1,0 +1,345 @@
+// Importing file
+@import "variables";
+
+
+
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+}
+
+h3 {
+    text-align: $center;
+}
+
+
+
+//Mixin
+@mixin clearfix {
+    &::after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+}
+@mixin hero-banner {
+    background: #feca45;
+    width: 100%;
+    display: block;
+    padding: 40px;
+    border: 1px dashed $clrBlack;
+    h2 {
+        font-size: $heading2;
+        color: $clrBlack;
+    }
+}
+.hero-1 {
+    @include hero-banner;
+    text-align: left;
+}
+.hero-2 {
+    @include hero-banner;
+    text-align: center;
+}
+.hero-3 {
+    @include hero-banner;
+    text-align: right;
+}
+
+.main {
+    box-sizing: border-box;
+    h1 {
+        color: $clrCoral;
+        font-size: $heading1;
+    }
+}
+
+.grid-container {
+    &::after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+}
+
+// Setting default value, sometimes helps some classes to change default value by overriding
+@mixin grid-view3($bgClr: #7811da) {
+    background: $bgClr;
+    color: #fff;
+    width: 46%;
+    margin: 4% 2%;
+    padding: 40px 0;
+    text-align: center;
+    float: left;
+} 
+.grid-3-1 {
+    @include grid-view3;
+}
+.grid-3-2 {
+    @include grid-view3(crimson);
+}
+
+//simple mixin with parameter
+@mixin grid-view($col,$mVal) {
+    float: left;
+    box-sizing: border-box;
+    width: (100% / $col);
+    border: 1px solid saddlebrown;
+    background-color: salmon;
+    padding: 25px 0;
+    margin-bottom: $mVal;
+}
+.grid {
+    @include grid-view(4,4px);
+}
+
+// complex mixin with parameter
+@mixin grid-view2($cols, $mVals, $mValP) {
+    float: left;
+    width: ((100% / $cols)-$mValP);
+    border:1px solid cadetblue;
+    background: cyan;
+    padding: #{($mVals*6)}px 0;
+    margin-bottom: $mValP;
+    margin-right: $mValP;
+    &:nth-of-type(#{$cols}) {
+        background-color: aquamarine;
+    }
+}
+.grid-2 {
+    @include grid-view2(8,5,5%);
+}
+
+
+
+// Nesting Styles
+.nav {
+    background: #feac45;
+    width: 100%;
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li {
+            display: inline-block;
+            padding: 15px;
+        }
+    }
+    @include clearfix;
+}
+
+
+
+// Using Pseudo Classes
+.nav {
+    ul {
+        li {
+            &:hover {
+                background: #feca45;
+            }
+        }
+    }
+}
+
+
+
+// Math Calculations & SASS color functions
+.nav ul {
+    li {
+        float: left;
+        width: (100% / 6);
+    }
+}
+
+.color-schemes {
+    padding: 10px;
+    article {
+        width: (100% / 3);
+        border: 1px solid crimson;
+        height: 150px;
+        float: left;
+    }
+    article:nth-of-type(1) {
+        background: lighten(#feac45,5);
+    }
+    article:nth-of-type(2) {
+        background: darken(#feac45,8);
+    }
+    article:nth-of-type(3) {
+        background: complement(#feac45);
+    }
+    &::after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+}
+
+
+
+//if...else
+@mixin displayView($datas) {
+    @if($datas > 992) {
+        width: 60%;
+    } @else {
+        width: 100%;
+    }
+}
+
+.display-view article {
+    @include displayView(1000);
+    border: 2px solid crimson;
+    background: peru;
+    padding: 40px 0;
+    color: $clrWhite;
+    margin: 20px auto;
+}
+
+
+
+//   @if...@else
+@mixin buttons($count) {
+    float: left;
+    @if($count != 1234) {
+        width: (100% / $count); 
+    }
+    padding: 8px 0;
+    text-align: $center;
+}
+
+.btns {
+    .btn {
+        @include buttons(6);
+    }
+
+    .btn-one {
+        @include buttons(1234);
+        background-color: sandybrown;
+    }
+    
+    &::after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+}
+
+
+
+// @content - example 1
+@mixin contentView {
+    border: 2px dashed brown;
+    background: rosybrown;
+    text-align: $center;
+    padding: 12px 0;
+    float: left;
+    width: (100% / 3);
+    margin: 20px 0;
+    @content;
+}
+.content-view {
+    @include clearfix;
+    // article {
+    //     @include contentView;
+    // }
+    article:nth-of-type(2) {
+        @include contentView {
+            background: palegoldenrod;
+        }
+    }
+}
+
+// @content - example 2
+@mixin mq($size) {
+    @media (max-width: $size) {
+        @content;
+    }
+}
+.content-view article {
+    @include contentView;
+    @include mq(700px) {
+        width: 100% !important;
+    }
+}
+
+
+
+/*   Multiple args   +   @if...@else   +   @content   */
+@mixin arg-view($vals...) {
+    @if((nth($vals,1)-1) < 992) {
+        @media(max-width: #{(nth($vals,1)-1)}px) {
+            background: #7811da;
+        }
+    } 
+    @if((nth($vals,2)+1) > 1200) {
+        @media(min-width: #{nth($vals,2)+1}px ) {
+            background: #aaa;
+        }
+    } 
+    @if(((nth($vals,1)+1) > 992) && ((nth($vals,2)-1) < 1200)) {
+        @media(min-width:#{nth($vals,1)}px) and (max-width:#{nth($vals,2)}px) {
+            @content;
+        }
+    }
+}
+
+
+.multiple-arg article {
+    @include arg-view(992,1200) {
+        background: coral;
+    }
+    padding: 50px 0;
+    text-align: center;
+    width: (100% / 8);
+    float: left;
+    border: 2px solid #feca45;
+}
+
+
+
+//   @extend
+%btns {     // storing few common css that can be extended
+    padding: 6px 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.extend-btns {
+    @extend %btns;
+    background-color: burlywood;
+}
+
+
+
+// Using Functions
+$dark-theme-clr: #444;
+@function set-theme-based-clr($dark-theme-clr) {
+    @if(lightness($dark-theme-clr) > 70) {
+        @return $dark-theme-clr;
+    } @else {
+        @return #fff;
+    }
+}
+
+.function-usage {
+    h3 {
+        background-color: $dark-theme-clr;
+        color: set-theme-based-clr($dark-theme-clr); //Sending bg-color to check dark or light to switch font color
+    }
+}
+
+
+
+// Using @each
+$item-list: (1,2,3,4,5,6);
+
+@each $items in $item-list {
+    .loops-usage p:nth-child(#{$items}) {
+        border: 1px solid brown;
+        padding: 15px;
+        font-size: #{$items}2px;
+        margin: 6px 10px;
+    }
+}
